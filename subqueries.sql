@@ -66,6 +66,37 @@ insert into OrderItem values ('O4', 'P3', 10, 22);
 insert into OrderItem values ('O4', 'P8', 50, 40);
 
 select * from Customer;
-select * from Product;
 select * from Orders;
+select * from Product;
 select * from OrderItem; 
+
+--List product names with order quantities greater than 20
+--using subqueries
+select Product_Name from Product
+where ProdID in (select PID from OrderItem where Quantity > 20);
+
+--using join
+select distinct Product_Name from Product inner join OrderItem
+on Product.ProdID = OrderItem.PID
+where Quantity > 20;
+
+
+--Which products were sold by the unit quantity 12
+
+select Product_Name from Product
+where ProdID in (select PID from OrderItem where Quantity = 12);
+
+-- List customers who placed orders that are larger than the average of each customer order
+-- approach: find each customer's average order
+-- then find an order larger than ALL of these
+select Cname, Total from Customer inner join Orders
+on CustomerID = CID
+where total > all(select avg(Total) from Orders group by CID);
+	
+
+select Cname, avg(Total) as [Average of Total] from Orders inner join Customer
+on Orders.CID = Customer.CustomerID
+group by CID,Cname
+order by Cname asc;
+
+select Cname, Total from Customer inner join Orders on CustomerID = CID;
