@@ -89,6 +89,8 @@ where ProdID in (select PID from OrderItem where Quantity = 12);
 -- List customers who placed orders that are larger than the average of each customer order
 -- approach: find each customer's average order
 -- then find an order larger than ALL of these
+
+--think of All as AND logic and ANY as OR logic
 select Cname, Total from Customer inner join Orders
 on CustomerID = CID
 where total > all(select avg(Total) from Orders group by CID);
@@ -100,3 +102,12 @@ group by CID,Cname
 order by Cname asc;
 
 select Cname, Total from Customer inner join Orders on CustomerID = CID;
+
+
+--using Subqueries for inserting
+Create table ProductCopy (ProdID varchar(10) primary key, Product_Name varchar(20), Unit_Price int);
+
+insert into ProductCopy
+select * from Product;
+
+select * from ProductCopy;
