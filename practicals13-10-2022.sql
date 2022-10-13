@@ -36,6 +36,7 @@ VALUES
 
 --7
 select * from ACCOUNT;
+select * from ACCOUNT_TYPE;
 
 --8
 select ACCOUNT_NO from  ACCOUNT
@@ -62,15 +63,15 @@ where CODE = 'SAVING';
 --13
 select account_no, balance, interest_rate
 from Account inner join ACCOUNT_TYPE
-on Account.Atype = ACCOUNT_TYPE.CODE;
+on ACCOUNT.ATYPE = ACCOUNT_TYPE.CODE;
 
 --14
 select bcode, sum(balance) from ACCOUNT
 group by bcode;
 
 --15
-select account_no, min(balance) from ACCOUNT
-group by account_no;
+select account_no from ACCOUNT
+where atype  = 'SAVING' and balance = (select min(balance) from account);
 
 --16
 select * from account 
