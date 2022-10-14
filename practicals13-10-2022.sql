@@ -73,25 +73,24 @@ group by bcode;
 select account_no from ACCOUNT
 where atype  = 'SAVING' and balance = (select min(balance) from account);
 
---16
+--16 --not sure about this one
 select * from account 
 order by Bcode;
 
 
 --17
 select account_no, atype, name from ACCOUNT inner join ACCOUNT_TYPE
-on atype = code
+on Atype = Code
 order by balance;
 
---18
+
+--18 -- we haven't done this 
 USE BankP;  
-GO  
+Go
 CREATE PROCEDURE checkBalance
     @balance float
 AS   
-
-    SET NOCOUNT ON;  
-    SELECT *
+    SELECT ACCOUNT_NO
     FROM Account
     WHERE balance > @balance
 GO
