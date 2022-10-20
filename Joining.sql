@@ -1,3 +1,5 @@
+use Company;
+
 select * from employee;
 select * from Department;
 
@@ -29,6 +31,10 @@ Values
 select Eno, Ename, Position, Dno, Dname
 from Employee left join Department
 on Employee.Dno = Department.DeptNo
+
+select Eno
+from Employee
+where Employee.Dno = Department.DeptNo
 
 --right join
 select Eno, Ename, Position, Dno, DeptNo, Dname
